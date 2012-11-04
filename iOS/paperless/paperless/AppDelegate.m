@@ -9,6 +9,12 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
+@interface AppDelegate ()
+
+@property (nonatomic, unsafe_unretained) BOOL dropboxLinked;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -18,6 +24,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[RootViewController alloc] init];
     [self.window makeKeyAndVisible];
+    CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
+    credentials.appIdentifier = @"4fdd95b74f90444fb35ab1b2020a59fd";
+    credentials.appSecret = @"95f0195908b44c529589c951edc6a541";
     return YES;
 }
 

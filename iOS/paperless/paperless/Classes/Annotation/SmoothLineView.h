@@ -20,8 +20,16 @@
 	CGMutablePathRef path;
 }
 
+typedef enum {
+    
+    StudentView = 0,
+    TeacherView = 1
+} PenMode;
+
 @property (nonatomic, retain) UIColor *lineColor;
 @property (readwrite) CGFloat lineWidth;
 @property (assign, nonatomic) BOOL empty;
+@property (nonatomic, assign) PenMode currentPenMode;
+
 
 @end

@@ -9,10 +9,13 @@
 #import "RootViewController.h"
 #import "FileView.h"
 #import "AppDelegate.h"
+#import "BaseViewController.h"
 
 @interface RootViewController ()
 
 @property (nonatomic, strong) FileView *fileView;
+
+@property (nonatomic, strong) BaseViewController *splitView;
 
 @end
 
@@ -31,10 +34,10 @@
 {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     self.view = [[UIView alloc] initWithFrame:delegate.window.bounds];
-    NSLog(@"RootViewController view frame = %@", NSStringFromCGRect(self.view.frame));
-    self.fileView = [[FileView alloc] init];
-    self.fileView.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ooo.png"]];
-    [self.view addSubview:self.fileView.view];
+//    self.fileView = [[FileView alloc] init];
+//    self.fileView.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ooo.png"]];
+    self.splitView = [[BaseViewController alloc] init];
+    [self.view addSubview:self.splitView.view];
 }
 
 - (void)viewDidLoad

@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define DEFAULT_COLOR [UIColor blackColor]
-#define DEFAULT_WIDTH 5.0f
+#define DEFAULT_WIDTH 4.0f
 
 static const CGFloat kPointMinDistance = 5;
 
@@ -29,6 +29,7 @@ CGPoint midPoint(CGPoint p1, CGPoint p2);
 @synthesize lineColor;
 @synthesize lineWidth;
 @synthesize empty = _empty;
+@synthesize currentPenMode = currentPenMode_;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -58,6 +59,19 @@ CGPoint midPoint(CGPoint p1, CGPoint p2);
 
 
 #pragma mark Private Helper function
+
+- (void)setCurrentPenMode:(PenMode)currentPenMode
+{
+    currentPenMode_ = currentPenMode;
+    if (currentPenMode == TeacherView)
+    {
+        self.lineColor = [UIColor greenColor];
+    }
+    else
+    {
+        self.lineColor = [UIColor blackColor];
+    }
+}
 
 CGPoint midPoint(CGPoint p1, CGPoint p2) {
     return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);

@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SmoothLineView.h"
+#import <CloudMine/CloudMine.h>
 
 @interface FileView : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, unsafe_unretained) PenMode thePenMode;
+
+
 
 @end
