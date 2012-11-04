@@ -49,7 +49,7 @@
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteTeacherOverlay)];
     
-    self.toolbar.items = @[flexibleSpace,saveButton, deleteButton, flexibleSpace];
+    self.toolbar.items = @[flexibleSpace,saveButton, flexibleSpace,  deleteButton, flexibleSpace];
     [self.view addSubview:self.toolbar];
     
     self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ooo.png"]];
@@ -113,6 +113,7 @@
     }];
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.scrollView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
     self.scrollView.delegate = self;
     [self.scrollView setMinimumZoomScale:0.5];
     [self.scrollView setMaximumZoomScale:6.0];
