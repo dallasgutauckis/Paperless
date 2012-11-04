@@ -16,7 +16,6 @@
 		77A8A87B1645793700AC8710 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 77A8A87A1645793700AC8710 /* Default.png */; };
 		77A8A87D1645793700AC8710 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77A8A87C1645793700AC8710 /* Default@2x.png */; };
 		77A8A87F1645793700AC8710 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77A8A87E1645793700AC8710 /* Default-568h@2x.png */; };
-		77A8A88816457AD900AC8710 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8A88716457AD900AC8710 /* DropboxSDK.framework */; };
 		77A8A88D16457B3600AC8710 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8A88916457B0500AC8710 /* Security.framework */; };
 		77A8A88E16457B3800AC8710 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8A88B16457B0B00AC8710 /* QuartzCore.framework */; };
 		77A8A8981645803600AC8710 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A8A8971645803600AC8710 /* RootViewController.m */; };
@@ -30,6 +29,7 @@
 		77EE1E971646C60F0007D62C /* FileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EE1E941646C60F0007D62C /* FileView.m */; };
 		77EE1E981646C60F0007D62C /* SmoothLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EE1E961646C60F0007D62C /* SmoothLineView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		77EE1ECA1646CB180007D62C /* CloudMine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1EC91646CB180007D62C /* CloudMine.framework */; };
+		77EE1ED5164701970007D62C /* rung_logo_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EE1ED4164701970007D62C /* rung_logo_2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,12 +46,11 @@
 		77A8A87A1645793700AC8710 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		77A8A87C1645793700AC8710 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		77A8A87E1645793700AC8710 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		77A8A88716457AD900AC8710 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		77A8A88916457B0500AC8710 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		77A8A88B16457B0B00AC8710 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		77A8A8961645803600AC8710 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		77A8A8971645803600AC8710 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		77A8A899164581F000AC8710 /* ooo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ooo.png; sourceTree = "<group>"; };
+		77A8A899164581F000AC8710 /* ooo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ooo.png; path = ../../ooo.png; sourceTree = "<group>"; };
 		77A8A8B716461B0F00AC8710 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		77A8A8B816461B0F00AC8710 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		77EE1DF016461D600007D62C /* FileListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListViewController.h; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		77EE1E951646C60F0007D62C /* SmoothLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothLineView.h; sourceTree = "<group>"; };
 		77EE1E961646C60F0007D62C /* SmoothLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothLineView.m; sourceTree = "<group>"; };
 		77EE1EC91646CB180007D62C /* CloudMine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudMine.framework; sourceTree = "<group>"; };
+		77EE1ED4164701970007D62C /* rung_logo_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rung_logo_2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,6 @@
 				77A8A8691645793700AC8710 /* UIKit.framework in Frameworks */,
 				77A8A86B1645793700AC8710 /* Foundation.framework in Frameworks */,
 				77A8A86D1645793700AC8710 /* CoreGraphics.framework in Frameworks */,
-				77A8A88816457AD900AC8710 /* DropboxSDK.framework in Frameworks */,
 				77EE1ECA1646CB180007D62C /* CloudMine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,7 +95,6 @@
 				77EE1E411646B6F70007D62C /* MobileCoreServices.framework */,
 				77EE1E3F1646B6F00007D62C /* libz.dylib */,
 				77EE1E3D1646B6E80007D62C /* CFNetwork.framework */,
-				77A8A899164581F000AC8710 /* ooo.png */,
 				77A8A86E1645793700AC8710 /* paperless */,
 				77A8A8671645793700AC8710 /* Frameworks */,
 				77A8A8651645793700AC8710 /* Products */,
@@ -127,6 +125,7 @@
 		77A8A86E1645793700AC8710 /* paperless */ = {
 			isa = PBXGroup;
 			children = (
+				77EE1ED3164701970007D62C /* Graphics */,
 				77A8A8851645796E00AC8710 /* Classes */,
 				77A8A8771645793700AC8710 /* AppDelegate.h */,
 				77A8A8781645793700AC8710 /* AppDelegate.m */,
@@ -165,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				77EE1E991646C8D00007D62C /* CloudMine */,
-				77A8A88716457AD900AC8710 /* DropboxSDK.framework */,
 			);
 			name = Dependencies;
 			path = paperless/Dependencies;
@@ -206,6 +204,15 @@
 				77EE1EC91646CB180007D62C /* CloudMine.framework */,
 			);
 			name = CloudMine;
+			sourceTree = "<group>";
+		};
+		77EE1ED3164701970007D62C /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				77A8A899164581F000AC8710 /* ooo.png */,
+				77EE1ED4164701970007D62C /* rung_logo_2.png */,
+			);
+			path = Graphics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +271,7 @@
 				77A8A87D1645793700AC8710 /* Default@2x.png in Resources */,
 				77A8A87F1645793700AC8710 /* Default-568h@2x.png in Resources */,
 				77A8A89A164581F000AC8710 /* ooo.png in Resources */,
+				77EE1ED5164701970007D62C /* rung_logo_2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

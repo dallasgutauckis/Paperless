@@ -7,7 +7,6 @@
 //
 
 #import "FileListViewController.h"
-#import <DropboxSDK/DropboxSDK.h>
 
 #define kReuseId @"1234"
 
@@ -31,9 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(linkWithDropbox:)];
 
+    self.navigationItem.title = @"Papers";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -47,13 +45,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)linkWithDropbox:(id)sender
-{
-//    if (![[DBSession sharedSession] isLinked]) {
-//        [[DBSession sharedSession] linkFromController:self];
-//    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -65,14 +56,26 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 1;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = kReuseId;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %d", @"Assignment", indexPath.row + 1];
+    if (indexPath.row == 0)
+    {
+        cell.textLabel.text = @"Order of Operations";
+    }
+    if (indexPath.row == 1)
+    {
+        cell.textLabel.text = @"Shakespeare Essay";
+    }
+    if (indexPath.row == 2)
+    {
+        cell.textLabel.text = @"The New Math";
+    }
+//    cell.textLabel.text = [NSString stringWithFormat:@"%@ %d", @"Assignment", indexPath.row + 1];
     
     // Configure the cell...
     

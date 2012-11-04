@@ -30,7 +30,11 @@
         self.fileList.delegate = self;
         self.navController = [[UINavigationController alloc] initWithRootViewController:self.fileList];
         self.detailView = [[UIViewController alloc] init];
-        self.detailView.view.backgroundColor = [UIColor clearColor];
+        self.detailView.view.backgroundColor = [UIColor whiteColor];
+        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"rung_logo_2.png"]];
+        logo.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        logo.center = self.detailView.view.center;
+        [self.detailView.view addSubview:logo]; 
         self.viewControllers = @[self.navController, self.detailView];
         self.fileViewDictionary = [[NSMutableDictionary alloc] initWithCapacity:5.0];
         

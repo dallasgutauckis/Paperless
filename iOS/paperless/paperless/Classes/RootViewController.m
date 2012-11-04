@@ -34,8 +34,6 @@
 {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     self.view = [[UIView alloc] initWithFrame:delegate.window.bounds];
-//    self.fileView = [[FileView alloc] init];
-//    self.fileView.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ooo.png"]];
     self.splitView = [[BaseViewController alloc] init];
     [self.view addSubview:self.splitView.view];
 }
