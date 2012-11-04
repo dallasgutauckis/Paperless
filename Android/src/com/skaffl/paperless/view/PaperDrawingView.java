@@ -89,7 +89,7 @@ public class PaperDrawingView extends View {
         mLinePaint = new Paint();
         mLinePaint.setColor(Color.argb(0xff, 0x11, 0x11, 0x11));
         mLinePaint.setStyle(Style.STROKE);
-        mLinePaint.setStrokeWidth(1.5f);
+        mLinePaint.setStrokeWidth(10f);
         mLinePaint.setStrokeCap(Cap.ROUND);
         mLinePaint.setAntiAlias(true);
         mLinePaint.setDither(true);
