@@ -87,7 +87,7 @@ public class PaperDrawingView extends View {
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         mPath = new Path();
         mLinePaint = new Paint();
-        mLinePaint.setColor(Color.argb(0xff, 0x11, 0x11, 0x11));
+        mLinePaint.setColor(Color.argb(0xff, 0x22, 0x22, 0x22));
         mLinePaint.setStyle(Style.STROKE);
         mLinePaint.setStrokeWidth(10f);
         mLinePaint.setStrokeCap(Cap.ROUND);
@@ -315,7 +315,10 @@ public class PaperDrawingView extends View {
         mDrawingBitmap = mItem.student;
         mDrawingCanvas = new Canvas(mDrawingBitmap);
 
-        checkDimensions();
+        if (checkDimensions) {
+            checkDimensions();
+        }
+
         invalidate();
     }
 

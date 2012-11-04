@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="app_name">Paperless</string>
-    <string name="title_paper_detail">Paper Detail</string>
-    <string name="title_paper_list">Papers</string>
+    <string name="app_name">rung</string>
+    <string name="title_paper_detail">Worksheet</string>
+    <string name="title_paper_list">Worksheets</string>
 
 </resources>
