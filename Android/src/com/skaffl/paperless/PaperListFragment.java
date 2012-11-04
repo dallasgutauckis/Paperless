@@ -68,7 +68,7 @@ public class PaperListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-        mCallbacks.onItemSelected(Worksheets.ITEMS.get(position).path);
+        mCallbacks.onItemSelected(Worksheets.ITEMS.get(position).name);
     }
 
     @Override

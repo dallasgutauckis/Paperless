@@ -13,12 +13,12 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+import com.skaffl.paperless.dummy.Worksheets;
 import com.skaffl.paperless.dummy.Worksheets.Worksheet;
 
 import java.util.ArrayList;
@@ -43,6 +43,8 @@ public class PaperDrawingView extends View {
 
     private PersonType mDrawingPersonType = null;
     private Worksheet mWorksheet;
+
+    private Paint mBitmapPaint;
 
     private int mDrawingResolutionScale = 1;
 
@@ -90,6 +92,20 @@ public class PaperDrawingView extends View {
         mLinePaint.setStrokeWidth(1.5f);
         mLinePaint.setStrokeCap(Cap.ROUND);
         mLinePaint.setAntiAlias(true);
+        mLinePaint.setDither(true);
+
+        mBitmapPaint = new Paint();
+        mBitmapPaint.setShadowLayer(10f, 4f, 4f, Color.BLACK);
+        mBitmapPaint.setColor(Color.BLACK);
+        mBitmapPaint.setStrokeWidth(1f);
+        mBitmapPaint.setStyle(Style.STROKE);
+
+        sCallback = new RefreshCallback() {
+            @Override
+            public void onUpdate() {
+                setWorksheet(Worksheets.ITEMS.get(1), false);
+            }
+        };
     }
 
     public void setDrawingPersonType(PersonType type) {
@@ -197,6 +213,7 @@ public class PaperDrawingView extends View {
                     touch_up();
                 } else {
                     cancelDraw = false;
+                    mPath.reset();
                 }
                 mActivePointerId = INVALID_POINTER_ID;
                 invalidate();
@@ -243,6 +260,12 @@ public class PaperDrawingView extends View {
         mScaleFactor = mOriginalHeight > mOriginalWidth ? mCanvasHeight / mOriginalHeight : mCanvasWidth / mOriginalWidth;
     }
 
+    public static RefreshCallback sCallback;
+
+    public interface RefreshCallback {
+        void onUpdate();
+    }
+
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
@@ -254,25 +277,25 @@ public class PaperDrawingView extends View {
 
         RectF dst = new RectF(0, 0, mOriginalWidth, mOriginalHeight);
 
-        canvas.drawBitmap(mWorksheet.original, null, dst, null);
+        canvas.drawBitmap(mWorksheet.original, null, dst, mBitmapPaint);
 
         // if (mWorksheet.student != null) {
         // canvas.drawBitmap(mWorksheet.student, null, null);
         // }
 
-        if (mWorksheet.teacher != null) {
-            canvas.drawBitmap(mWorksheet.teacher, null, null);
-        }
-
         if (mDrawingBitmap != null) {
             canvas.drawBitmap(mDrawingBitmap, null, dst, null);
+        }
+
+        if (mWorksheet.teacher != null) {
+            canvas.drawBitmap(mWorksheet.teacher, null, dst, null);
         }
 
         canvas.drawPath(mPath, mLinePaint);
         canvas.restore();
     }
 
-    public void setWorksheet(Worksheet mItem) {
+    public void setWorksheet(Worksheet mItem, boolean checkDimensions) {
         Log.v(TAG, "setting worksheet to " + mItem);
         mWorksheet = mItem;
 
@@ -284,9 +307,10 @@ public class PaperDrawingView extends View {
                     Math.round(mOriginalWidth * mDrawingResolutionScale),
                     Math.round(mOriginalHeight * mDrawingResolutionScale),
                     Config.ARGB_4444);
+            mItem.student.setDensity(Bitmap.DENSITY_NONE);
         }
 
-        Log.v(TAG, "student item: " + mItem.student);
+        mItem.student.setDensity(Bitmap.DENSITY_NONE);
 
         mDrawingBitmap = mItem.student;
         mDrawingCanvas = new Canvas(mDrawingBitmap);

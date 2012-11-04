@@ -1,6 +1,6 @@
 package com.skaffl.paperless;
 
 public interface Constants {
-    final static String APP_KEY = "e8erphlk23apu6m";
-    final static String APP_SECRET = "j45gy0kdxb424q8";
+    static final String CM_APP_ID = "4fdd95b74f90444fb35ab1b2020a59fd";
+    static final String CM_API_KEY = "95f0195908b44c529589c951edc6a541";
 }

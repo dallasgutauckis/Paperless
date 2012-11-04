@@ -39,13 +39,13 @@ public class PaperDetailFragment extends Fragment {
             Log.v(TAG, "Loading item: " + mItem);
 
             PaperDrawingView worksheet = (PaperDrawingView) rootView.findViewById(R.id.worksheet);
-            worksheet.setWorksheet(mItem);
+            worksheet.setWorksheet(mItem, true);
             worksheet.setDrawingPersonType(PersonType.STUDENT);
         }
 
         return rootView;
     }
-    
+
     @Override
     public void onPause() {
         super.onPause();
