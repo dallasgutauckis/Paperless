@@ -111,7 +111,7 @@
         }
 
     }];
-//    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, self.view.bounds.size.height)];
+
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 44.0, self.view.bounds.size.width, self.view.bounds.size.height)];
     self.scrollView.delegate = self;
     [self.scrollView setMinimumZoomScale:0.5];
@@ -178,6 +178,11 @@
     
     }];
     self.teacherOverlay.image = nil;
+    [self.teacherView removeFromSuperview];
+    self.teacherView = [[SmoothLineView alloc] initWithFrame:self.backgroundImageView.bounds];
+    self.teacherView.opaque = NO;
+    self.teacherView.currentPenMode = TeacherView;
+    [self.scrollingView addSubview:self.teacherView];
 
 }
 
