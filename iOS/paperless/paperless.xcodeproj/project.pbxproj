@@ -19,10 +19,17 @@
 		77A8A88816457AD900AC8710 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8A88716457AD900AC8710 /* DropboxSDK.framework */; };
 		77A8A88D16457B3600AC8710 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8A88916457B0500AC8710 /* Security.framework */; };
 		77A8A88E16457B3800AC8710 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A8A88B16457B0B00AC8710 /* QuartzCore.framework */; };
-		77A8A89516457E3700AC8710 /* FileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A8A89416457E3700AC8710 /* FileView.m */; };
 		77A8A8981645803600AC8710 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A8A8971645803600AC8710 /* RootViewController.m */; };
 		77A8A89A164581F000AC8710 /* ooo.png in Resources */ = {isa = PBXBuildFile; fileRef = 77A8A899164581F000AC8710 /* ooo.png */; };
-		77A8A8AC164610D800AC8710 /* SmoothLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A8A8AA164601FC00AC8710 /* SmoothLineView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		77A8A8B916461B0F00AC8710 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A8A8B816461B0F00AC8710 /* BaseViewController.m */; };
+		77EE1DF216461D600007D62C /* FileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EE1DF116461D600007D62C /* FileListViewController.m */; };
+		77EE1E3E1646B6E80007D62C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1E3D1646B6E80007D62C /* CFNetwork.framework */; };
+		77EE1E401646B6F00007D62C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1E3F1646B6F00007D62C /* libz.dylib */; };
+		77EE1E421646B6F70007D62C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1E411646B6F70007D62C /* MobileCoreServices.framework */; };
+		77EE1E441646B6FE0007D62C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1E431646B6FE0007D62C /* SystemConfiguration.framework */; };
+		77EE1E971646C60F0007D62C /* FileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EE1E941646C60F0007D62C /* FileView.m */; };
+		77EE1E981646C60F0007D62C /* SmoothLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EE1E961646C60F0007D62C /* SmoothLineView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		77EE1ECA1646CB180007D62C /* CloudMine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1EC91646CB180007D62C /* CloudMine.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,13 +49,22 @@
 		77A8A88716457AD900AC8710 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		77A8A88916457B0500AC8710 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		77A8A88B16457B0B00AC8710 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		77A8A89316457E3700AC8710 /* FileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileView.h; sourceTree = "<group>"; };
-		77A8A89416457E3700AC8710 /* FileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileView.m; sourceTree = "<group>"; };
 		77A8A8961645803600AC8710 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		77A8A8971645803600AC8710 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		77A8A899164581F000AC8710 /* ooo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ooo.png; sourceTree = "<group>"; };
-		77A8A8A9164601FC00AC8710 /* SmoothLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothLineView.h; sourceTree = "<group>"; };
-		77A8A8AA164601FC00AC8710 /* SmoothLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothLineView.m; sourceTree = "<group>"; };
+		77A8A8B716461B0F00AC8710 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		77A8A8B816461B0F00AC8710 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		77EE1DF016461D600007D62C /* FileListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListViewController.h; sourceTree = "<group>"; };
+		77EE1DF116461D600007D62C /* FileListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListViewController.m; sourceTree = "<group>"; };
+		77EE1E3D1646B6E80007D62C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		77EE1E3F1646B6F00007D62C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		77EE1E411646B6F70007D62C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		77EE1E431646B6FE0007D62C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		77EE1E931646C60F0007D62C /* FileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileView.h; sourceTree = "<group>"; };
+		77EE1E941646C60F0007D62C /* FileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileView.m; sourceTree = "<group>"; };
+		77EE1E951646C60F0007D62C /* SmoothLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothLineView.h; sourceTree = "<group>"; };
+		77EE1E961646C60F0007D62C /* SmoothLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothLineView.m; sourceTree = "<group>"; };
+		77EE1EC91646CB180007D62C /* CloudMine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudMine.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +72,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77EE1E441646B6FE0007D62C /* SystemConfiguration.framework in Frameworks */,
+				77EE1E421646B6F70007D62C /* MobileCoreServices.framework in Frameworks */,
+				77EE1E401646B6F00007D62C /* libz.dylib in Frameworks */,
+				77EE1E3E1646B6E80007D62C /* CFNetwork.framework in Frameworks */,
 				77A8A88D16457B3600AC8710 /* Security.framework in Frameworks */,
 				77A8A88E16457B3800AC8710 /* QuartzCore.framework in Frameworks */,
 				77A8A8691645793700AC8710 /* UIKit.framework in Frameworks */,
 				77A8A86B1645793700AC8710 /* Foundation.framework in Frameworks */,
 				77A8A86D1645793700AC8710 /* CoreGraphics.framework in Frameworks */,
 				77A8A88816457AD900AC8710 /* DropboxSDK.framework in Frameworks */,
+				77EE1ECA1646CB180007D62C /* CloudMine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +92,10 @@
 		77A8A8591645793700AC8710 = {
 			isa = PBXGroup;
 			children = (
+				77EE1E431646B6FE0007D62C /* SystemConfiguration.framework */,
+				77EE1E411646B6F70007D62C /* MobileCoreServices.framework */,
+				77EE1E3F1646B6F00007D62C /* libz.dylib */,
+				77EE1E3D1646B6E80007D62C /* CFNetwork.framework */,
 				77A8A899164581F000AC8710 /* ooo.png */,
 				77A8A86E1645793700AC8710 /* paperless */,
 				77A8A8671645793700AC8710 /* Frameworks */,
@@ -127,7 +152,9 @@
 		77A8A8851645796E00AC8710 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				77EE1E451646B7C50007D62C /* DataObjects */,
 				77A8A88F16457C0A00AC8710 /* Annotation */,
+				77A8A8B516461AFC00AC8710 /* MainUI */,
 				77A8A8961645803600AC8710 /* RootViewController.h */,
 				77A8A8971645803600AC8710 /* RootViewController.m */,
 			);
@@ -137,6 +164,7 @@
 		77A8A8861645799A00AC8710 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				77EE1E991646C8D00007D62C /* CloudMine */,
 				77A8A88716457AD900AC8710 /* DropboxSDK.framework */,
 			);
 			name = Dependencies;
@@ -146,12 +174,38 @@
 		77A8A88F16457C0A00AC8710 /* Annotation */ = {
 			isa = PBXGroup;
 			children = (
-				77A8A89316457E3700AC8710 /* FileView.h */,
-				77A8A89416457E3700AC8710 /* FileView.m */,
-				77A8A8A9164601FC00AC8710 /* SmoothLineView.h */,
-				77A8A8AA164601FC00AC8710 /* SmoothLineView.m */,
+				77EE1E931646C60F0007D62C /* FileView.h */,
+				77EE1E941646C60F0007D62C /* FileView.m */,
+				77EE1E951646C60F0007D62C /* SmoothLineView.h */,
+				77EE1E961646C60F0007D62C /* SmoothLineView.m */,
 			);
 			path = Annotation;
+			sourceTree = "<group>";
+		};
+		77A8A8B516461AFC00AC8710 /* MainUI */ = {
+			isa = PBXGroup;
+			children = (
+				77A8A8B716461B0F00AC8710 /* BaseViewController.h */,
+				77A8A8B816461B0F00AC8710 /* BaseViewController.m */,
+				77EE1DF016461D600007D62C /* FileListViewController.h */,
+				77EE1DF116461D600007D62C /* FileListViewController.m */,
+			);
+			path = MainUI;
+			sourceTree = "<group>";
+		};
+		77EE1E451646B7C50007D62C /* DataObjects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataObjects;
+			sourceTree = "<group>";
+		};
+		77EE1E991646C8D00007D62C /* CloudMine */ = {
+			isa = PBXGroup;
+			children = (
+				77EE1EC91646CB180007D62C /* CloudMine.framework */,
+			);
+			name = CloudMine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,9 +276,11 @@
 			files = (
 				77A8A8751645793700AC8710 /* main.m in Sources */,
 				77A8A8791645793700AC8710 /* AppDelegate.m in Sources */,
-				77A8A89516457E3700AC8710 /* FileView.m in Sources */,
 				77A8A8981645803600AC8710 /* RootViewController.m in Sources */,
-				77A8A8AC164610D800AC8710 /* SmoothLineView.m in Sources */,
+				77A8A8B916461B0F00AC8710 /* BaseViewController.m in Sources */,
+				77EE1DF216461D600007D62C /* FileListViewController.m in Sources */,
+				77EE1E971646C60F0007D62C /* FileView.m in Sources */,
+				77EE1E981646C60F0007D62C /* SmoothLineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +360,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "paperless/paperless-Prefix.pch";
 				INFOPLIST_FILE = "paperless/paperless-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -319,6 +379,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "paperless/paperless-Prefix.pch";
 				INFOPLIST_FILE = "paperless/paperless-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
