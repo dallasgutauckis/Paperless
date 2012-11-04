@@ -1,8 +1,7 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.skaffl.paperless.view.PaperDrawingView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="?android:attr/textAppearanceLarge"
-    android:id="@+id/paper_detail"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/worksheet"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:padding="16dp"
     tools:context=".PaperDetailFragment" />

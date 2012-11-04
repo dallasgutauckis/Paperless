@@ -9,5 +9,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Paperless/libs/cloudmine-android-v0.3.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/dropbox-android-sdk-1.5.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

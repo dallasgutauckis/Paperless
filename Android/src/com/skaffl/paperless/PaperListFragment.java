@@ -1,6 +1,6 @@
 package com.skaffl.paperless;
 
-import com.skaffl.paperless.dummy.DummyContent;
+import com.skaffl.paperless.dummy.Worksheets;
 
 import android.R;
 import android.app.Activity;
@@ -34,10 +34,10 @@ public class PaperListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+        setListAdapter(new ArrayAdapter<Worksheets.Worksheet>(getActivity(),
                 R.layout.simple_list_item_activated_1,
                 R.id.text1,
-                DummyContent.ITEMS));
+                Worksheets.ITEMS));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class PaperListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(Worksheets.ITEMS.get(position).path);
     }
 
     @Override
