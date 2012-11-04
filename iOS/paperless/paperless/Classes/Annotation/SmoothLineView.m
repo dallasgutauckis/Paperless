@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define DEFAULT_COLOR [UIColor blackColor]
-#define DEFAULT_WIDTH 4.0f
+#define DEFAULT_WIDTH 5.0f
 
 static const CGFloat kPointMinDistance = 5;
 
@@ -65,7 +65,7 @@ CGPoint midPoint(CGPoint p1, CGPoint p2);
     currentPenMode_ = currentPenMode;
     if (currentPenMode == TeacherView)
     {
-        self.lineColor = [UIColor greenColor];
+        self.lineColor = self.lineColor = [UIColor colorWithRed:(144/255.0) green:(201/255.0) blue:(20/255.0) alpha:1.0];;
     }
     else
     {
