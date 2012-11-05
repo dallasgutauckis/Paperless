@@ -30,6 +30,7 @@
 		77EE1E981646C60F0007D62C /* SmoothLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EE1E961646C60F0007D62C /* SmoothLineView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		77EE1ECA1646CB180007D62C /* CloudMine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77EE1EC91646CB180007D62C /* CloudMine.framework */; };
 		77EE1ED5164701970007D62C /* rung_logo_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EE1ED4164701970007D62C /* rung_logo_2.png */; };
+		77EE1EDD16470F090007D62C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EE1EDA16470DCD0007D62C /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		77EE1E961646C60F0007D62C /* SmoothLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothLineView.m; sourceTree = "<group>"; };
 		77EE1EC91646CB180007D62C /* CloudMine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudMine.framework; sourceTree = "<group>"; };
 		77EE1ED4164701970007D62C /* rung_logo_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rung_logo_2.png; sourceTree = "<group>"; };
+		77EE1EDA16470DCD0007D62C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		77A8A8591645793700AC8710 = {
 			isa = PBXGroup;
 			children = (
+				77EE1EDA16470DCD0007D62C /* icon.png */,
 				77EE1E431646B6FE0007D62C /* SystemConfiguration.framework */,
 				77EE1E411646B6F70007D62C /* MobileCoreServices.framework */,
 				77EE1E3F1646B6F00007D62C /* libz.dylib */,
@@ -272,6 +275,7 @@
 				77A8A87F1645793700AC8710 /* Default-568h@2x.png in Resources */,
 				77A8A89A164581F000AC8710 /* ooo.png in Resources */,
 				77EE1ED5164701970007D62C /* rung_logo_2.png in Resources */,
+				77EE1EDD16470F090007D62C /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
