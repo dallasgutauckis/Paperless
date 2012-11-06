@@ -1,8 +1,6 @@
 package com.skaffl.paperless.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -11,7 +9,10 @@ import android.graphics.Paint;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.RectF;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,28 +21,34 @@ import android.view.View;
 
 import com.skaffl.paperless.dummy.Worksheets;
 import com.skaffl.paperless.dummy.Worksheets.Worksheet;
+import com.skaffl.paperless.view.PaperDrawingView.PaperDrawingSynchronizer.RemoteTouchCallback;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 public class PaperDrawingView extends View {
+
+    private static final String MQTT_URI = "tcp://173.193.71.218:1883";
+
+    private static final String TAG = "PaperDrawingView";
+
     public enum PersonType {
         TEACHER,
         STUDENT
     }
 
-    private static final String TAG = "PaperDrawingView";
-
     private static final int INVALID_POINTER_ID = -1;
 
-    private GestureOverlayView mGestureView;
-
-    private List<PaperDrawingViewPart> mStudentParts = new ArrayList<PaperDrawingViewPart>();
+    private RemoteTouchCallback mRemoteTouchCallback = new RemoteTouchCallbackImplementation();
+    private PaperDrawingSynchronizer mSynchronizer = new PaperDrawingSynchronizer(mRemoteTouchCallback);
 
     private Bitmap mDrawingBitmap;
     private Canvas mDrawingCanvas;
-
-    private PersonType mDrawingPersonType = null;
     private Worksheet mWorksheet;
 
     private Paint mBitmapPaint;
@@ -67,6 +74,7 @@ public class PaperDrawingView extends View {
     private ScaleGestureDetector mScaleDetector;
 
     private Paint mLinePaint;
+    private Paint mRemoteLinePaint;
 
     public PaperDrawingView(Context context) {
         super(context);
@@ -85,14 +93,25 @@ public class PaperDrawingView extends View {
 
     void init(Context context) {
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
+
         mPath = new Path();
+        mRemotePath = new Path();
+
         mLinePaint = new Paint();
-        mLinePaint.setColor(Color.argb(0xff, 0x22, 0x22, 0x22));
+        mLinePaint.setColor(Color.BLACK);
         mLinePaint.setStyle(Style.STROKE);
         mLinePaint.setStrokeWidth(10f);
         mLinePaint.setStrokeCap(Cap.ROUND);
         mLinePaint.setAntiAlias(true);
         mLinePaint.setDither(true);
+
+        mRemoteLinePaint = new Paint();
+        mRemoteLinePaint.setColor(Color.RED);
+        mRemoteLinePaint.setStyle(Style.STROKE);
+        mRemoteLinePaint.setStrokeWidth(20f);
+        mRemoteLinePaint.setStrokeCap(Cap.ROUND);
+        mRemoteLinePaint.setAntiAlias(true);
+        mRemoteLinePaint.setDither(true);
 
         mBitmapPaint = new Paint();
         mBitmapPaint.setShadowLayer(10f, 4f, 4f, Color.BLACK);
@@ -106,28 +125,28 @@ public class PaperDrawingView extends View {
                 setWorksheet(Worksheets.ITEMS.get(1), false);
             }
         };
-    }
 
-    public void setDrawingPersonType(PersonType type) {
-        mDrawingPersonType = type;
-        this.invalidate();
+        // Connect to MQTT
+        mSynchronizer.connect(MQTT_URI, MqttClient.generateClientId());
     }
 
     private float mX, mY;
+    private float mRemoteX, mRemoteY;
 
     private Path mPath;
+    private Path mRemotePath;
 
     private boolean cancelDraw = false;
     private static final float TOUCH_TOLERANCE = 4;
 
-    private void touch_start(float x, float y) {
+    private void touchDown(float x, float y) {
         mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
         mY = y;
     }
 
-    private void touch_move(float x, float y) {
+    private void touchMove(float x, float y) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
@@ -137,12 +156,42 @@ public class PaperDrawingView extends View {
         }
     }
 
-    private void touch_up() {
+    private void touchUp() {
         mPath.lineTo(mX, mY);
         // commit the path to our offscreen
         mDrawingCanvas.drawPath(mPath, mLinePaint);
         // kill this so we don't double draw
         mPath.reset();
+    }
+
+    private void touchDownRemote(float x, float y) {
+        mRemotePath.reset();
+        mRemotePath.moveTo(x, y);
+        mRemoteX = x;
+        mRemoteY = y;
+        invalidate();
+    }
+
+    private void touchMoveRemote(float x, float y) {
+        Log.v(TAG, "Touch Move Remote( x, y ) = ( " + x + ", " + y + " )");
+
+        float dx = Math.abs(x - mRemoteX);
+        float dy = Math.abs(y - mRemoteY);
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            mRemotePath.quadTo(mRemoteX, mRemoteY, (x + mRemoteX) / 2, (y + mRemoteY) / 2);
+            mRemoteX = x;
+            mRemoteY = y;
+        }
+        invalidate();
+    }
+
+    private void touchUpRemote() {
+        mRemotePath.lineTo(mRemoteX, mRemoteY);
+        // commit the path to our offscreen
+        mDrawingCanvas.drawPath(mRemotePath, mRemoteLinePaint);
+        // kill this so we don't double draw
+        mRemotePath.reset();
+        invalidate();
     }
 
     @Override
@@ -161,10 +210,12 @@ public class PaperDrawingView extends View {
                 float convertedX = ((x - mPosX) / mScaleFactor);
                 float convertedY = ((y - mPosY) / mScaleFactor);
 
+                mSynchronizer.onTouchDown(convertedX, convertedY);
+
                 mLastTouchX = x;
                 mLastTouchY = y;
                 mActivePointerId = ev.getPointerId(0);
-                touch_start(convertedX, convertedY);
+                touchDown(convertedX, convertedY);
                 break;
             }
 
@@ -194,7 +245,10 @@ public class PaperDrawingView extends View {
 
                         invalidate();
                     } else {
-                        touch_move(convertedX, convertedY);
+                        touchMove(convertedX, convertedY);
+
+                        mSynchronizer.onTouchMove(convertedX, convertedY);
+
                         invalidate();
                     }
                 } else {
@@ -210,7 +264,8 @@ public class PaperDrawingView extends View {
 
             case MotionEvent.ACTION_UP: {
                 if (!cancelDraw) {
-                    touch_up();
+                    mSynchronizer.onTouchUp();
+                    touchUp();
                 } else {
                     cancelDraw = false;
                     mPath.reset();
@@ -221,6 +276,7 @@ public class PaperDrawingView extends View {
             }
 
             case MotionEvent.ACTION_CANCEL: {
+                mSynchronizer.onTouchCancel();
                 mPath.reset();
                 mActivePointerId = INVALID_POINTER_ID;
                 invalidate();
@@ -228,8 +284,7 @@ public class PaperDrawingView extends View {
             }
 
             case MotionEvent.ACTION_POINTER_UP: {
-                final int pointerIndex = (ev.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK)
-                        >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+                final int pointerIndex = (ev.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
                 final int pointerId = ev.getPointerId(pointerIndex);
                 if (pointerId == mActivePointerId) {
                     // This was our active pointer going up. Choose a new
@@ -266,7 +321,6 @@ public class PaperDrawingView extends View {
         void onUpdate();
     }
 
-    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -275,32 +329,33 @@ public class PaperDrawingView extends View {
         canvas.translate(mPosX, mPosY);
         canvas.scale(mScaleFactor, mScaleFactor);
 
-        RectF dst = new RectF(0, 0, mOriginalWidth, mOriginalHeight);
-
-        canvas.drawBitmap(mWorksheet.original, null, dst, mBitmapPaint);
+        canvas.drawBitmap(mWorksheet.original, null, mDst, mBitmapPaint);
 
         // if (mWorksheet.student != null) {
         // canvas.drawBitmap(mWorksheet.student, null, null);
         // }
 
         if (mDrawingBitmap != null) {
-            canvas.drawBitmap(mDrawingBitmap, null, dst, null);
+            canvas.drawBitmap(mDrawingBitmap, null, mDst, null);
         }
 
         if (mWorksheet.teacher != null) {
-            canvas.drawBitmap(mWorksheet.teacher, null, dst, null);
+            canvas.drawBitmap(mWorksheet.teacher, null, mDst, null);
         }
 
+        canvas.drawPath(mRemotePath, mRemoteLinePaint);
         canvas.drawPath(mPath, mLinePaint);
+
         canvas.restore();
     }
 
     public void setWorksheet(Worksheet mItem, boolean checkDimensions) {
-        Log.v(TAG, "setting worksheet to " + mItem);
         mWorksheet = mItem;
 
         mOriginalWidth = mWorksheet.original.getWidth();
         mOriginalHeight = mWorksheet.original.getHeight();
+
+        mDst = new RectF(0, 0, mOriginalWidth, mOriginalHeight);
 
         if (mItem.student == null) {
             mItem.student = Bitmap.createBitmap(
@@ -351,6 +406,224 @@ public class PaperDrawingView extends View {
 
             invalidate();
             return true;
+        }
+    }
+
+    static class Messager {
+        public void messageToCallback(String data, RemoteTouchCallback callback) {
+
+        }
+    }
+
+    private enum TouchType {
+        DOWN,
+        MOVE,
+        UP,
+        CANCEL;
+
+        public static TouchType getByOrdinal(int ordinal) {
+            return values()[ordinal];
+        }
+    }
+
+    static class PaperDrawingSynchronizer {
+        private MqttClient mClient;
+        private MqttTopic mTopic;
+
+        private char mDrawerId = Character.toChars((int) Math.round(Math.random() * 255))[0];
+
+        final private RemoteTouchCallback mRemoteTouchCallback;
+
+        public PaperDrawingSynchronizer(RemoteTouchCallback callback) {
+            mRemoteTouchCallback = callback;
+        }
+
+        private void connect(final String serverUrl, final String clientId) {
+            (new Thread() {
+                @Override
+                public void run() {
+                    // Without persistence, please
+                    try {
+                        mClient = new MqttClient(serverUrl, clientId, null);
+                        mClient.connect();
+                        mClient.setCallback(mCallback);
+                        mTopic = mClient.getTopic("draw");
+                        mClient.subscribe("draw");
+                    } catch (MqttException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+
+        public char getDrawerId() {
+            return mDrawerId;
+        }
+
+        private MqttCallback mCallback = new MqttCallback() {
+            @Override
+            public void messageArrived(MqttTopic topic, MqttMessage message) throws Exception {
+                String msg = new String(message.getPayload());
+                char clientId = msg.substring(0, 1).toCharArray()[0];
+
+                if (clientId == getDrawerId()) {
+                    // Don't do anything
+                    return;
+                }
+
+                TouchType type = TouchType.getByOrdinal(Integer.parseInt(msg.substring(1, 2)));
+
+                if (type == TouchType.DOWN || type == TouchType.MOVE) {
+                    String coords = msg.substring(2);
+                    int commaPos = coords.indexOf(',');
+
+                    float x = Float.parseFloat(coords.substring(0, commaPos));
+                    float y = Float.parseFloat(coords.substring(commaPos + 1));
+
+                    switch (type) {
+                        case DOWN:
+                            mRemoteTouchCallback.onTouchDown(x, y);
+                            break;
+
+                        case MOVE:
+                            mRemoteTouchCallback.onTouchMove(x, y);
+                            break;
+                    }
+                } else {
+                    switch (type) {
+                        case UP:
+                            mRemoteTouchCallback.onTouchUp();
+                            break;
+
+                        case CANCEL:
+                            mRemoteTouchCallback.onTouchCancel();
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void deliveryComplete(MqttDeliveryToken token) {
+            }
+
+            @Override
+            public void connectionLost(Throwable cause) {
+                Log.v(TAG, "Connection lost", cause);
+            }
+        };
+
+        private void sendTouch(TouchType type) {
+            String message = getDrawerId() + "" + type.ordinal();
+            final byte[] payload = (message).getBytes();
+            sendMessage(payload);
+        }
+
+        private void sendTouchWithCoordinates(TouchType type, float x, float y) {
+            String message = String.format("%s%s%f,%f", getDrawerId(), type.ordinal(), x, y);
+            final byte[] payload = (message).getBytes();
+            sendMessage(payload);
+        }
+
+        private void sendMessage(final byte[] payload) {
+            if (mClient.isConnected()) {
+                (new Thread() {
+                    public void run() {
+                        try {
+                            mTopic.publish(new MqttMessage(payload));
+                        } catch (MqttPersistenceException e) {
+                            e.printStackTrace();
+                        } catch (MqttException e) {
+                            e.printStackTrace();
+                        }
+                    };
+                }).start();
+            }
+        }
+
+        public void onTouchDown(float x, float y) {
+            sendTouchWithCoordinates(TouchType.DOWN, x, y);
+        }
+
+        public void onTouchMove(float x, float y) {
+            sendTouchWithCoordinates(TouchType.MOVE, x, y);
+        }
+
+        public void onTouchUp() {
+            sendTouch(TouchType.UP);
+        }
+
+        public void onTouchCancel() {
+            sendTouch(TouchType.CANCEL);
+        }
+
+        interface RemoteTouchCallback {
+            public void onTouchDown(float x, float y);
+
+            public void onTouchMove(float x, float y);
+
+            public void onTouchUp();
+
+            public void onTouchCancel();
+        }
+    }
+
+    private Handler mRemoteTouchHandler = new RemoteTouchHandler();
+
+    private RectF mDst;
+
+    private final class RemoteTouchHandler extends Handler {
+        public static final int MESSAGE_TOUCH_UP = 0;
+        public static final int MESSAGE_TOUCH_MOVE = 1;
+        public static final int MESSAGE_TOUCH_DOWN = 2;
+        public static final int MESSAGE_TOUCH_CANCEL = 3;
+
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_TOUCH_UP:
+                    touchUpRemote();
+                    break;
+
+                case MESSAGE_TOUCH_DOWN:
+                    PointF downPoint = (PointF) msg.obj;
+                    touchDownRemote(downPoint.x, downPoint.y);
+                    break;
+
+                case MESSAGE_TOUCH_MOVE:
+                    PointF movePoint = (PointF) msg.obj;
+                    touchMoveRemote(movePoint.x, movePoint.y);
+                    break;
+
+                case MESSAGE_TOUCH_CANCEL:
+                    mRemotePath.reset();
+                    break;
+            }
+        }
+    }
+
+    private final class RemoteTouchCallbackImplementation implements RemoteTouchCallback {
+        @Override
+        public void onTouchUp() {
+            Log.v(TAG, "onTouchUp");
+            mRemoteTouchHandler.sendEmptyMessage(RemoteTouchHandler.MESSAGE_TOUCH_UP);
+        }
+
+        @Override
+        public void onTouchMove(float x, float y) {
+            Log.v(TAG, "onTouchMove");
+            mRemoteTouchHandler.sendMessage(mRemoteTouchHandler.obtainMessage(RemoteTouchHandler.MESSAGE_TOUCH_MOVE, new PointF(x, y)));
+        }
+
+        @Override
+        public void onTouchDown(float x, float y) {
+            Log.v(TAG, "onTouchDown");
+            mRemoteTouchHandler.sendMessage(mRemoteTouchHandler.obtainMessage(RemoteTouchHandler.MESSAGE_TOUCH_DOWN, new PointF(x, y)));
+        }
+
+        @Override
+        public void onTouchCancel() {
+            Log.v(TAG, "onTouchCancel");
+            mRemoteTouchHandler.sendEmptyMessage(RemoteTouchHandler.MESSAGE_TOUCH_UP);
+
         }
     }
 }

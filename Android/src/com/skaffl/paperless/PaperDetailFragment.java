@@ -40,7 +40,6 @@ public class PaperDetailFragment extends Fragment {
 
             PaperDrawingView worksheet = (PaperDrawingView) rootView.findViewById(R.id.worksheet);
             worksheet.setWorksheet(mItem, true);
-            worksheet.setDrawingPersonType(PersonType.STUDENT);
         }
 
         return rootView;
