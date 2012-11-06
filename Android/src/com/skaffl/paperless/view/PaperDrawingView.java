@@ -173,8 +173,6 @@ public class PaperDrawingView extends View {
     }
 
     private void touchMoveRemote(float x, float y) {
-        Log.v(TAG, "Touch Move Remote( x, y ) = ( " + x + ", " + y + " )");
-
         float dx = Math.abs(x - mRemoteX);
         float dy = Math.abs(y - mRemoteY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
